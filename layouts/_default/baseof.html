@@ -16,7 +16,8 @@
 {{ if not (findRE "^#[0-9a-fA-F]{6}$" $accent) }}{{ $accent = "#315c49" }}{{ end }}{{ if not (findRE "^#[0-9a-fA-F]{6}$" $bg) }}{{ $bg = "#f7f5ef" }}{{ end }}
 <style>:root{--accent:{{ $accent | safeCSS }};--paper:{{ $bg | safeCSS }};}</style>
 </head>
-<body class="{{ if .IsHome }}home-page{{ else if and (eq .Section "posts") .IsSection }}records-page{{ else if eq .Section "posts" }}record-page{{ else }}inner-page{{ end }} width-{{ hugo.Data.settings.width | default "normal" }} font-{{ hugo.Data.settings.font_style | default "serif" }} corners-{{ hugo.Data.settings.corners | default "soft" }}">
+{{ $pageSlug := "" }}{{ with .File }}{{ $pageSlug = .ContentBaseName }}{{ end }}
+<body class="{{ if .IsHome }}home-page{{ else if and (eq .Section "posts") .IsSection }}records-page{{ else if eq .Section "posts" }}record-page{{ else }}inner-page{{ end }} page-{{ $pageSlug }} width-{{ hugo.Data.settings.width | default "normal" }} font-{{ hugo.Data.settings.font_style | default "serif" }} corners-{{ hugo.Data.settings.corners | default "soft" }}">
 <div class="memory-overlay" aria-hidden="true"></div>
 <a class="skip" href="#main">跳到正文</a>
 <header class="header wrap">
@@ -25,6 +26,5 @@
 </header>
 <main id="main" class="wrap">{{ block "main" . }}{{ end }}</main>
 <footer class="footer wrap"><div><strong>{{ hugo.Data.settings.title }}</strong><p>{{ hugo.Data.settings.footer }}</p></div><div><a href="{{ "index.xml" | partial "url.html" }}">RSS 订阅 ↗</a>{{ range hugo.Data.settings.footer_links }}<a href="{{ .url | partial "url.html" }}">{{ .label }} ↗</a>{{ end }}{{ if ne hugo.Data.settings.show_admin_link false }}<a href="{{ "admin/" | partial "url.html" }}">管理小站 ↗</a>{{ end }}<small>© {{ now.Year }} · 本页最后生成于 {{ now.Format "2006.01.02" }}</small></div></footer>
-{{ if .IsHome }}<script src="{{ "js/memory-world.js" | partial "url.html" }}" defer></script>{{ end }}
+{{ if .IsHome }}<script src="{{ "js/memory-world.js" | partial "url.html" }}" defer></script>{{ else }}{{ with .File }}{{ if eq .ContentBaseName "about" }}<script src="{{ "js/computer-room.js" | partial "url.html" }}" defer></script>{{ end }}{{ end }}{{ end }}
 </body></html>
-

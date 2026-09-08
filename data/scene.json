@@ -49,6 +49,18 @@
       "mobile_x": 63,
       "mobile_y": 34,
       "label_side": "right"
+    },
+    {
+      "label": "旧电脑",
+      "place": "电脑房里亮着的蓝色屏幕",
+      "note": "它没有登录界面，却好像记得你来过。",
+      "destination": "custom",
+      "url": "/about/#computer",
+      "desktop_x": 84,
+      "desktop_y": 56,
+      "mobile_x": 78,
+      "mobile_y": 55,
+      "label_side": "left"
     }
   ]
 }

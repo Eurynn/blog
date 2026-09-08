@@ -7,6 +7,5 @@
   <div class="record-paper"><div class="prose">{{ .Content }}</div></div>
   <nav class="record-nav" aria-label="文章导航"><a href="{{ "posts/" | partial "url.html" }}">← 全部记录</a>{{ with .PrevInSection }}<a href="{{ .RelPermalink }}">较新的记录 ↗</a>{{ end }}{{ with .NextInSection }}<a href="{{ .RelPermalink }}">较早的记录 ↗</a>{{ end }}</nav>
 </article>
-{{ else }}<section class="inner-room"><header class="page-heading"><p class="eyebrow">A PAGE OF MY WORLD</p><h1>{{ .Title }}</h1>{{ with .Description }}<p>{{ . }}</p>{{ end }}</header>{{ partial "blocks.html" . }}{{ with .Content }}<div class="prose section">{{ . }}</div>{{ end }}</section>{{ end }}
+{{ else }}{{ $isComputer := false }}{{ with .File }}{{ $isComputer = eq .ContentBaseName "about" }}{{ end }}<section class="inner-room{{ if $isComputer }} computer-room{{ end }}"{{ if $isComputer }} id="computer"{{ end }}>{{ if $isComputer }}<div class="computer-status" data-computer-status>最后登录：16:07 / 屏幕等待输入</div>{{ end }}<header class="page-heading"><p class="eyebrow">A PAGE OF MY WORLD</p><h1>{{ .Title }}</h1>{{ with .Description }}<p>{{ . }}</p>{{ end }}</header>{{ partial "blocks.html" . }}{{ with .Content }}<div class="prose section">{{ . }}</div>{{ end }}</section>{{ end }}
 {{ end }}
-
