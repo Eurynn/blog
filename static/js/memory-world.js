@@ -146,12 +146,16 @@
   enterSilent?.addEventListener('click', () => enter(false));
   soundButton?.addEventListener('click', () => setSound(!stage.classList.contains('sound-on')));
 
+  let navigating = false;
+  const transitionDelay = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 300;
   document.querySelectorAll('[data-scene-link]').forEach((link) => {
     link.addEventListener('click', (event) => {
-      if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (navigating || event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       event.preventDefault();
+      navigating = true;
       stage.classList.add('is-transitioning');
-      window.setTimeout(() => { window.location.href = link.href; }, 580);
+      window.setTimeout(() => { window.location.assign(link.href); }, transitionDelay);
+      window.setTimeout(() => { stage.classList.remove('is-transitioning'); navigating = false; }, 2600);
     });
   });
 

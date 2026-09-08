@@ -6,12 +6,16 @@
   const links = document.querySelectorAll('[data-room-link]');
   if (!body) return;
 
+  let navigating = false;
+  const transitionDelay = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 240;
   links.forEach((link) => {
     link.addEventListener('click', (event) => {
-      if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (navigating || event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       event.preventDefault();
+      navigating = true;
       body.classList.add('is-leaving');
-      window.setTimeout(() => { window.location.href = link.href; }, 460);
+      window.setTimeout(() => { window.location.assign(link.href); }, transitionDelay);
+      window.setTimeout(() => { body.classList.remove('is-leaving'); navigating = false; }, 2600);
     });
   });
 
