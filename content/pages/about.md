@@ -26,12 +26,11 @@ blocks:
     title: 一点视觉灵感
     columns: "2"
     items:
-      - image: /blog/images/landscape.svg
-        caption: 山与远方 · 示例插画
-      - image: /blog/images/still-life.svg
-        caption: 桌边时光 · 示例插画
+      - image: /blog/images/dream-school.webp
+        caption: 放学以后 · 记忆片段 01
+      - image: /blog/images/dream-home.webp
+        caption: 傍晚的电视 · 记忆片段 02
   - type: callout
     title: 把这一页变成你自己的。
     text: 在后台打开「个性化页面」，你可以添加模块、调整顺序，也可以创建新的作品集或旅行页。
 ---
-

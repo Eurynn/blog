@@ -10,21 +10,18 @@
 {{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" title="{{ hugo.Data.settings.title }} RSS" href="{{ .Permalink }}">{{ end }}
 <link rel="stylesheet" href="{{ "css/style.css" | partial "url.html" }}">
 <link rel="stylesheet" href="{{ "css/enhancements.css" | partial "url.html" }}">
-<link rel="stylesheet" href="{{ "css/dreamcore.css" | partial "url.html" }}">
+<link rel="stylesheet" href="{{ "css/memorycore.css" | partial "url.html" }}">
 {{ $accent := hugo.Data.settings.accent | default "#315c49" }}{{ $bg := hugo.Data.settings.background | default "#f7f5ef" }}
 {{ if not (findRE "^#[0-9a-fA-F]{6}$" $accent) }}{{ $accent = "#315c49" }}{{ end }}{{ if not (findRE "^#[0-9a-fA-F]{6}$" $bg) }}{{ $bg = "#f7f5ef" }}{{ end }}
 <style>:root{--accent:{{ $accent | safeCSS }};--paper:{{ $bg | safeCSS }};}</style>
 </head>
 <body class="width-{{ hugo.Data.settings.width | default "normal" }} font-{{ hugo.Data.settings.font_style | default "serif" }} corners-{{ hugo.Data.settings.corners | default "soft" }}">
-<div class="dream-ambient" aria-hidden="true">
-  <i class="dream-cloud cloud-one"></i><i class="dream-cloud cloud-two"></i>
-  <i class="dream-door"></i><span class="dream-whisper">have you been here before?</span>
-</div>
+<div class="memory-overlay" aria-hidden="true"></div>
 <a class="skip" href="#main">跳到正文</a>
 <header class="header wrap">
 <a class="brand" href="{{ "" | partial "url.html" }}"><span class="brand-mark">{{ hugo.Data.settings.mark | default (substr hugo.Data.settings.title 0 1) }}</span>{{ hugo.Data.settings.title }}<span class="brand-sub">{{ hugo.Data.settings.tagline }}</span></a>
 {{ $page := . }}<nav aria-label="主导航">{{ range hugo.Data.settings.navigation }}{{ $href := partial "url.html" .url }}<a href="{{ $href }}"{{ if eq $page.RelPermalink $href }} aria-current="page"{{ end }}>{{ .label }}</a>{{ end }}</nav>
 </header>
 <main id="main" class="wrap">{{ block "main" . }}{{ end }}</main>
-<footer class="footer wrap"><div><strong>{{ hugo.Data.settings.title }}</strong><p>{{ hugo.Data.settings.footer }}</p></div><div><a href="{{ "index.xml" | partial "url.html" }}">RSS 订阅 ↗</a>{{ range hugo.Data.settings.footer_links }}<a href="{{ .url | partial "url.html" }}">{{ .label }} ↗</a>{{ end }}{{ if ne hugo.Data.settings.show_admin_link false }}<a href="{{ "admin/" | partial "url.html" }}">管理小站 ↗</a>{{ end }}<small>© {{ now.Year }} · somewhere between asleep and awake</small></div></footer>
+<footer class="footer wrap"><div><strong>{{ hugo.Data.settings.title }}</strong><p>{{ hugo.Data.settings.footer }}</p></div><div><a href="{{ "index.xml" | partial "url.html" }}">RSS 订阅 ↗</a>{{ range hugo.Data.settings.footer_links }}<a href="{{ .url | partial "url.html" }}">{{ .label }} ↗</a>{{ end }}{{ if ne hugo.Data.settings.show_admin_link false }}<a href="{{ "admin/" | partial "url.html" }}">管理小站 ↗</a>{{ end }}<small>© {{ now.Year }} · 本页最后生成于 {{ now.Format "2006.01.02" }}</small></div></footer>
 </body></html>

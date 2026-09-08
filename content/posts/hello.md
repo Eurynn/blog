@@ -3,7 +3,7 @@ title: 给自己留一块自由生长的地方
 slug: hello
 date: 2026-09-01T10:00:00+08:00
 description: 不用急着决定这里是什么，先写下第一段话。
-cover: /blog/images/landscape.svg
+cover: /blog/images/dream-playground.webp
 tags: [生活]
 draft: false
 ---

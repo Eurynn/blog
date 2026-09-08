@@ -3,7 +3,7 @@ title: 灵感不必完整，也值得收藏
 slug: notes
 date: 2026-08-28T10:00:00+08:00
 description: 为那些稍纵即逝的小念头，准备一个抽屉。
-cover: /blog/images/still-life.svg
+cover: /blog/images/dream-home.webp
 tags: [灵感]
 draft: false
 ---

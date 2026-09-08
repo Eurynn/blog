@@ -10,8 +10,8 @@ blocks:
       适合介绍作品、旅行地点、一本书，或任何需要图片和文字并排出现的内容。
 
       后台可以选择图片在左侧或右侧，手机上会自动变成单列。
-    image: /blog/images/still-life.svg
-    alt: 桌面植物与咖啡杯的插画
+    image: /blog/images/dream-playground.webp
+    alt: 傍晚空无一人的旧居民区游乐场
     image_position: left
     button: 查看文章
     url: /posts/
@@ -58,4 +58,3 @@ blocks:
       - question: 新页面怎样加入菜单？
         answer: 在“网站外观与导航”中新增一项，填写页面地址，例如 `/module-playground/`。
 ---
-

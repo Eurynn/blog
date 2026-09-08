@@ -2,37 +2,37 @@
 title: 首页
 blocks:
   - type: hero
-    eyebrow: MY LITTLE CORNER OF THE INTERNET
+    eyebrow: MEMORY INDEX / 2002—2008
     title: |
-      把日子，写成
-      自己的形状。
+      你还记得，
+      放学后的风吗？
     text: |
-      这里收藏生活里的小事、偶然的灵感，
-      和那些值得慢慢说的故事。
-    button: 翻开我的笔记
+      有些记忆没有日期，只剩下一点光、一条走廊，
+      和远处听不清的声音。这里收集生活、梦和差点忘记的事情。
+    button: 进入记忆
     url: /posts/
-    image: /blog/images/landscape.svg
+    image: /blog/images/dream-school.webp
   - type: cards
-    title: 在这里，随心漫游
-    text: 给不同的兴趣，留一个自己的角落。
+    title: 记忆目录
+    text: 点击一条路径，去往不同的房间。
     columns: "3"
     items:
-      - title: 生活切片
-        text: 留住平凡日子里的微小光亮。
+      - title: 日常存档
+        text: 一些真实发生过的小事。
         url: /tags/生活/
-      - title: 灵感笔记
-        text: 一些想法，一些未完成的探索。
+      - title: 不完整的梦
+        text: 醒来以后，只记得其中一小段。
         url: /tags/灵感/
-      - title: 关于这个小站
-        text: 一个可以随时重新布置的空间。
+      - title: 关于这里
+        text: 谁留下了这些页面？
         url: /about/
   - type: posts
-    title: 最近写下的
-    text: 不赶时间，慢慢更新。
+    title: 最近找到的片段
+    text: 按日期保存，顺序可能并不重要。
     count: 6
   - type: callout
-    title: 这里没有标准答案。
-    text: 你可以把它变成旅行手账、作品集、阅读笔记，或只是一个安静写字的地方。
-    button: 认识一下
+    title: 如果想不起来，就先记住此刻。
+    text: 这里可以成为日记、梦境记录、作品集，或者一间只属于你的房间。
+    button: 查看这间房
     url: /about/
 ---

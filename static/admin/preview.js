@@ -6,7 +6,7 @@
   const img = (src, alt, getAsset) => h("img", {src: src ? assetURL(getAsset(src)) : "", alt: alt || ""});
   CMS.registerPreviewStyle(location.pathname.replace(/admin\/.*$/, "css/style.css"));
   CMS.registerPreviewStyle(location.pathname.replace(/admin\/.*$/, "css/enhancements.css"));
-  CMS.registerPreviewStyle(location.pathname.replace(/admin\/.*$/, "css/dreamcore.css"));
+  CMS.registerPreviewStyle(location.pathname.replace(/admin\/.*$/, "css/memorycore.css"));
   function renderBlock(b, i, getAsset) {
     if (b.enabled === false) return null;
     let content;
