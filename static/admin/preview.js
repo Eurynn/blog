@@ -7,6 +7,7 @@
   CMS.registerPreviewStyle(location.pathname.replace(/admin\/.*$/, "css/style.css"));
   CMS.registerPreviewStyle(location.pathname.replace(/admin\/.*$/, "css/enhancements.css"));
   CMS.registerPreviewStyle(location.pathname.replace(/admin\/.*$/, "css/memorycore.css"));
+  CMS.registerPreviewStyle(location.pathname.replace(/admin\/.*$/, "css/memory-world.css"));
   function renderBlock(b, i, getAsset) {
     if (b.enabled === false) return null;
     let content;
@@ -38,7 +39,29 @@
       d.slug && h("header",{className:"page-heading"},h("h1",null,d.title),h("p",null,d.description)),
       (d.blocks||[]).map((b,i)=>renderBlock(b,i,props.getAsset)));
   }
+  function ScenePreview(props) {
+    const d=props.entry.get("data").toJS();
+    const percent=(value,fallback)=>Math.max(0,Math.min(100,Number(value ?? fallback)));
+    const spot=(item,index)=>h("div",{
+      className:"scene-hotspot hotspot-label-"+(item.label_side||"right"),
+      key:index,
+      style:{left:percent(item.desktop_x,50)+"%",top:percent(item.desktop_y,50)+"%",transform:"translate(-50%,-50%)"}
+    },h("span",{className:"hotspot-dot"}),h("span",{className:"hotspot-label"},item.label||"入口"));
+    return h("div",{style:{background:"#101a18",minHeight:"100vh",paddingTop:1}},
+      h("section",{className:"memory-world"},
+        h("div",{className:"world-stage"},
+          h("figure",{className:"world-main-photo"},img(d.desktop_image,d.image_alt,props.getAsset),h("figcaption",null,"场景预览 / 电脑端")),
+          h("div",{className:"world-shade"}),
+          h("div",{className:"scene-topline"},h("span",{className:"scene-led"}),h("span",null,d.browser_label||"拾光 / 入口"),h("span",{className:"scene-time"},d.time_note||""),h("button",{className:"scene-directory-toggle",type:"button"},d.directory_label||"打开目录")),
+          h("div",{className:"scene-caption"},h("p",{className:"scene-kicker"},"SCENE SETTINGS"),h("h1",null,"首页标题在“首页布局”中编辑"),h("span",{className:"scene-caption-note"},d.caption_note||"")),
+          (d.hotspots||[]).map(spot),
+          h("div",{className:"scene-readout"},h("span",null,"入口位置预览："),h("p",null,"手机位置请在发布页面或手机浏览器中确认。"))
+        )
+      )
+    );
+  }
   CMS.registerPreviewTemplate("home",PagePreview);
+  CMS.registerPreviewTemplate("scene",ScenePreview);
   CMS.registerPreviewTemplate("pages",PagePreview);
   CMS.registerPreviewTemplate("posts",props => {
     const d=props.entry.get("data").toJS();

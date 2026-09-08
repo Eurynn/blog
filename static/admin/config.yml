@@ -2347,7 +2347,209 @@
           ]
         }
       ]
+    },
+    {
+      "name": "scene",
+      "label": "梦核场景",
+      "files": [
+        {
+          "name": "scene",
+          "label": "首页场景与入口",
+          "file": "data/scene.json",
+          "format": "json",
+          "fields": [
+            {
+              "label": "电脑版场景图片",
+              "name": "desktop_image",
+              "widget": "image",
+              "hint": "横图效果最好。图片里的门、窗、公告栏将用下面的入口坐标对应。"
+            },
+            {
+              "label": "手机版场景图片（可选）",
+              "name": "mobile_image",
+              "widget": "image",
+              "required": false,
+              "hint": "建议上传竖图。留空时会使用电脑版图片裁切。"
+            },
+            {
+              "label": "图片描述",
+              "name": "image_alt",
+              "widget": "string",
+              "hint": "给读屏软件和图片加载失败时使用。"
+            },
+            {
+              "label": "左上角文字",
+              "name": "browser_label",
+              "widget": "string"
+            },
+            {
+              "label": "右上角提示",
+              "name": "time_note",
+              "widget": "string"
+            },
+            {
+              "label": "目录按钮文字",
+              "name": "directory_label",
+              "widget": "string"
+            },
+            {
+              "label": "场景提示文字",
+              "name": "caption_note",
+              "widget": "string",
+              "hint": "显示在首页标题下方。"
+            },
+            {
+              "label": "电脑图片焦点横向位置",
+              "name": "desktop_focus_x",
+              "widget": "number",
+              "value_type": "int",
+              "min": 0,
+              "max": 100,
+              "default": 50,
+              "hint": "0 是最左侧，100 是最右侧。"
+            },
+            {
+              "label": "电脑图片焦点纵向位置",
+              "name": "desktop_focus_y",
+              "widget": "number",
+              "value_type": "int",
+              "min": 0,
+              "max": 100,
+              "default": 50
+            },
+            {
+              "label": "手机图片焦点横向位置",
+              "name": "mobile_focus_x",
+              "widget": "number",
+              "value_type": "int",
+              "min": 0,
+              "max": 100,
+              "default": 56
+            },
+            {
+              "label": "手机图片焦点纵向位置",
+              "name": "mobile_focus_y",
+              "widget": "number",
+              "value_type": "int",
+              "min": 0,
+              "max": 100,
+              "default": 50
+            },
+            {
+              "label": "场景入口（可排序）",
+              "name": "hotspots",
+              "widget": "list",
+              "summary": "{{fields.label}} → {{fields.destination}}",
+              "hint": "横向和纵向坐标都是图片百分比。先打开网站，在画面中找到物件，再微调数值。",
+              "fields": [
+                {
+                  "label": "入口标签",
+                  "name": "label",
+                  "widget": "string",
+                  "hint": "例如：记录室、关于这里、最新记录。"
+                },
+                {
+                  "label": "悬停时显示的地点名",
+                  "name": "place",
+                  "widget": "string"
+                },
+                {
+                  "label": "悬停时显示的提示",
+                  "name": "note",
+                  "widget": "text"
+                },
+                {
+                  "label": "去哪里",
+                  "name": "destination",
+                  "widget": "select",
+                  "options": [
+                    {
+                      "label": "全部文章（记录室）",
+                      "value": "posts"
+                    },
+                    {
+                      "label": "关于页面（窗边纸条）",
+                      "value": "about"
+                    },
+                    {
+                      "label": "最新文章（公告栏）",
+                      "value": "latest"
+                    },
+                    {
+                      "label": "自定义链接",
+                      "value": "custom"
+                    }
+                  ],
+                  "default": "custom"
+                },
+                {
+                  "label": "自定义链接地址",
+                  "name": "url",
+                  "widget": "string",
+                  "required": false,
+                  "hint": "仅在“去哪里”选“自定义链接”时填写。站内路径如 /module-playground/，站外填写完整 https:// 地址。",
+                  "pattern": [
+                    "^(https://|/)[^\\s]*$",
+                    "请填写 / 开头的站内路径或 https:// 链接"
+                  ]
+                },
+                {
+                  "label": "电脑横向位置",
+                  "name": "desktop_x",
+                  "widget": "number",
+                  "value_type": "int",
+                  "min": 0,
+                  "max": 100,
+                  "default": 50
+                },
+                {
+                  "label": "电脑纵向位置",
+                  "name": "desktop_y",
+                  "widget": "number",
+                  "value_type": "int",
+                  "min": 0,
+                  "max": 100,
+                  "default": 50
+                },
+                {
+                  "label": "手机横向位置",
+                  "name": "mobile_x",
+                  "widget": "number",
+                  "value_type": "int",
+                  "min": 0,
+                  "max": 100,
+                  "default": 50
+                },
+                {
+                  "label": "手机纵向位置",
+                  "name": "mobile_y",
+                  "widget": "number",
+                  "value_type": "int",
+                  "min": 0,
+                  "max": 100,
+                  "default": 50
+                },
+                {
+                  "label": "标签放在圆点哪边",
+                  "name": "label_side",
+                  "widget": "select",
+                  "options": [
+                    {
+                      "label": "右边",
+                      "value": "right"
+                    },
+                    {
+                      "label": "左边",
+                      "value": "left"
+                    }
+                  ],
+                  "default": "right"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
-

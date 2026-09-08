@@ -20,7 +20,9 @@
     if (!directory || !openButton) return;
     directory.hidden = !open;
     openButton.setAttribute('aria-expanded', String(open));
-    openButton.textContent = open ? '关闭目录' : '打开目录';
+    openButton.textContent = open
+      ? (openButton.dataset.closeLabel || '关闭目录')
+      : (openButton.dataset.openLabel || '打开目录');
     if (open) closeButton?.focus();
     else openButton.focus();
   };
@@ -33,4 +35,3 @@
     if (event.key === 'Escape' && directory && !directory.hidden) setDirectory(false);
   });
 })();
-

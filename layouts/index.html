@@ -1,21 +1,29 @@
 {{ define "main" }}
 {{ $hero := dict }}{{ $cards := dict }}{{ $callout := dict }}
 {{ range .Params.blocks }}
-  {{ if eq .type "hero" }}{{ $hero = . }}{{ end }}
-  {{ if eq .type "cards" }}{{ $cards = . }}{{ end }}
-  {{ if eq .type "callout" }}{{ $callout = . }}{{ end }}
+  {{ if ne .enabled false }}
+    {{ if eq .type "hero" }}{{ $hero = . }}{{ end }}
+    {{ if eq .type "cards" }}{{ $cards = . }}{{ end }}
+    {{ if eq .type "callout" }}{{ $callout = . }}{{ end }}
+  {{ end }}
 {{ end }}
+{{ $scene := hugo.Data.scene | default dict }}
 {{ $heroImage := $hero.image | default "/blog/images/dream-school.webp" }}
+{{ $desktopImage := $scene.desktop_image | default $heroImage }}
+{{ $mobileImage := $scene.mobile_image | default $desktopImage }}
 {{ $posts := where site.RegularPages "Section" "posts" }}
 <section class="memory-world" aria-labelledby="world-title">
   <div class="world-stage" id="entrance">
-    <figure class="world-main-photo"><img src="{{ $heroImage | partial "url.html" }}" alt="{{ .Title }}的记忆场景"><figcaption>IMAGE 0027 / FOUND IN A DRAWER</figcaption></figure>
+    <figure class="world-main-photo"><picture><source media="(max-width: 760px)" srcset="{{ $mobileImage | partial "url.html" }}"><img src="{{ $desktopImage | partial "url.html" }}" alt="{{ $scene.image_alt | default (printf "%s的记忆场景" .Title) }}" style="--desktop-focus-x:{{ int ($scene.desktop_focus_x | default 50) }}%;--desktop-focus-y:{{ int ($scene.desktop_focus_y | default 50) }}%;--mobile-focus-x:{{ int ($scene.mobile_focus_x | default 56) }}%;--mobile-focus-y:{{ int ($scene.mobile_focus_y | default 50) }}%"></picture><figcaption>IMAGE 0027 / FOUND IN A DRAWER</figcaption></figure>
     <div class="world-shade" aria-hidden="true"></div>
-    <div class="scene-topline"><span class="scene-led" aria-hidden="true"></span><span>拾光 / 入口</span><span class="scene-time">天气：晴 · 时间：不确定</span><button class="scene-directory-toggle" type="button" aria-controls="scene-directory" aria-expanded="false">打开目录</button></div>
-    <div class="scene-caption" aria-live="polite"><p class="scene-kicker">{{ $hero.eyebrow | default "MEMORY INDEX / NO DATE" }}</p><h1 id="world-title">{{ $hero.title | default "你还记得，放学后的风吗？" }}</h1><p>{{ $hero.text | default "有些记忆没有日期，只剩下一点光。" }}</p><span class="scene-caption-note">把鼠标移到门、窗和纸条上。</span></div>
-    <a class="scene-hotspot hotspot-door" href="{{ "posts/" | partial "url.html" }}" data-memory="门后面不是教室。先进去，再决定要找什么。" data-place="记录室"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">记录室</span></a>
-    <a class="scene-hotspot hotspot-window" href="{{ "about/" | partial "url.html" }}" data-memory="窗外的光一直停在下午四点。" data-place="窗边的纸条"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">关于这里</span></a>
-    {{ with first 1 $posts }}{{ range . }}<a class="scene-hotspot hotspot-notice" href="{{ .RelPermalink }}" data-memory="{{ .Description }}" data-place="公告栏 / {{ .Title }}"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">最新记录</span></a>{{ end }}{{ end }}
+    {{ $directoryLabel := $scene.directory_label | default "打开目录" }}
+    <div class="scene-topline"><span class="scene-led" aria-hidden="true"></span><span>{{ $scene.browser_label | default "拾光 / 入口" }}</span><span class="scene-time">{{ $scene.time_note | default "天气：晴 · 时间：不确定" }}</span><button class="scene-directory-toggle" type="button" aria-controls="scene-directory" aria-expanded="false" data-open-label="{{ $directoryLabel }}" data-close-label="关闭目录">{{ $directoryLabel }}</button></div>
+    <div class="scene-caption" aria-live="polite"><p class="scene-kicker">{{ $hero.eyebrow | default "MEMORY INDEX / NO DATE" }}</p><h1 id="world-title">{{ $hero.title | default "你还记得，放学后的风吗？" }}</h1><p>{{ $hero.text | default "有些记忆没有日期，只剩下一点光。" }}</p><span class="scene-caption-note">{{ $scene.caption_note | default "把鼠标移到门、窗和纸条上。" }}</span></div>
+    {{ range $spot := $scene.hotspots }}
+      {{ $href := $spot.url | default "posts/" }}
+      {{ if eq $spot.destination "posts" }}{{ $href = "posts/" }}{{ else if eq $spot.destination "about" }}{{ $href = "about/" }}{{ else if eq $spot.destination "latest" }}{{ with first 1 $posts }}{{ range . }}{{ $href = .RelPermalink }}{{ end }}{{ end }}{{ end }}
+      <a class="scene-hotspot hotspot-label-{{ $spot.label_side | default "right" }}" href="{{ $href | partial "url.html" }}" data-memory="{{ $spot.note }}" data-place="{{ $spot.place | default $spot.label }}" style="--desktop-x:{{ int ($spot.desktop_x | default 50) }}%;--desktop-y:{{ int ($spot.desktop_y | default 50) }}%;--mobile-x:{{ int ($spot.mobile_x | default ($spot.desktop_x | default 50)) }}%;--mobile-y:{{ int ($spot.mobile_y | default ($spot.desktop_y | default 50)) }}%"><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label">{{ $spot.label }}</span></a>
+    {{ end }}
     <div class="scene-readout" aria-live="polite"><span>你正在看：</span><strong data-memory-place>入口</strong><p data-memory-status>走廊一直通向同一个下午。</p></div>
     <aside class="scene-directory" id="scene-directory" aria-label="记忆目录" hidden><div class="directory-head"><span>LOCATION LIST</span><button class="scene-directory-close" type="button" aria-label="关闭目录">×</button></div><a class="directory-entry directory-home" href="#entrance" data-memory="入口一直都在。" data-place="入口"><b>00</b><span>走廊入口</span><small>回到刚才站着的地方</small></a>{{ range $i, $item := first 3 $cards.items }}<a class="directory-entry" href="{{ $item.url | partial "url.html" }}" data-memory="{{ $item.text }}" data-place="{{ $item.title }}"><b>0{{ add $i 1 }}</b><span>{{ $item.title }}</span><small>{{ $item.text }}</small></a>{{ end }}<a class="directory-entry" href="{{ "posts/" | partial "url.html" }}" data-memory="有些片段按日期保存，有些没有。" data-place="全部记录"><b>04</b><span>全部记录</span><small>{{ len $posts }} 个还没有归档的下午</small></a><div class="directory-foot"><a href="{{ "index.xml" | partial "url.html" }}">RSS 订阅</a><a href="{{ "admin/" | partial "url.html" }}">编辑入口</a></div></aside>
   </div>
@@ -23,4 +31,3 @@
   <div class="scene-extras">{{ range $i, $block := .Params.blocks }}{{ if and (ne $block.type "hero") (ne $block.type "cards") (ne $block.type "posts") (ne $block.type "callout") }}{{ partial "block.html" (dict "page" $ "block" $block "index" $i) }}{{ end }}{{ end }}</div>
 </section>
 {{ end }}
-

@@ -1,0 +1,51 @@
+{
+  "desktop_image": "/blog/images/dream-school.webp",
+  "mobile_image": "/blog/images/dream-school.webp",
+  "image_alt": "旧学校走廊尽头通向明亮的天空和操场",
+  "browser_label": "拾光 / 入口",
+  "time_note": "天气：晴 · 时间：不确定",
+  "directory_label": "打开目录",
+  "caption_note": "把鼠标移到门、窗和纸条上。",
+  "desktop_focus_x": 50,
+  "desktop_focus_y": 50,
+  "mobile_focus_x": 56,
+  "mobile_focus_y": 50,
+  "hotspots": [
+    {
+      "label": "记录室",
+      "place": "记录室",
+      "note": "门后面不是教室。先进去，再决定要找什么。",
+      "destination": "posts",
+      "url": "",
+      "desktop_x": 86,
+      "desktop_y": 39,
+      "mobile_x": 89,
+      "mobile_y": 41,
+      "label_side": "right"
+    },
+    {
+      "label": "关于这里",
+      "place": "窗边的纸条",
+      "note": "窗外的光一直停在下午四点。",
+      "destination": "about",
+      "url": "",
+      "desktop_x": 13,
+      "desktop_y": 29,
+      "mobile_x": 8,
+      "mobile_y": 31,
+      "label_side": "left"
+    },
+    {
+      "label": "最新记录",
+      "place": "公告栏",
+      "note": "这里贴着最近留下来的一张纸。",
+      "destination": "latest",
+      "url": "",
+      "desktop_x": 69,
+      "desktop_y": 17,
+      "mobile_x": 80,
+      "mobile_y": 18,
+      "label_side": "right"
+    }
+  ]
+}
