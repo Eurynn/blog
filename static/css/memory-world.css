@@ -1,0 +1,78 @@
+/*
+   拾光的空间皮肤
+   首页是一条走廊，列表是记录室，文章是摊开的纸。
+   视觉故意保留一点旧相机和旧网页的痕迹，但正文不使用模糊滤镜。
+*/
+:root{
+  --world-night:#101a18;
+  --world-ink:#1e302c;
+  --world-paper:#e6e6cc;
+  --world-paper-dark:#c9ceb1;
+  --world-mist:#aab7a4;
+  --world-line:rgba(204,218,190,.54);
+  --world-signal:#d9c579;
+  --world-link:#dce8ce;
+}
+
+html{background:var(--world-night)}
+body.home-page{
+  min-height:100vh;overflow-x:hidden;background:var(--world-night);color:#dfe8d6;
+  font:15px/1.8 Tahoma,"Microsoft YaHei",sans-serif;
+}
+body.home-page .memory-overlay{opacity:.08;mix-blend-mode:screen;background:repeating-linear-gradient(0deg,rgba(238,242,210,.28) 0,rgba(238,242,210,.28) 1px,transparent 1px,transparent 5px)}
+body.home-page .header,body.home-page .footer{display:none}
+body.home-page main.wrap{width:100%;max-width:none;margin:0}
+body.home-page .skip{z-index:80;background:#e7e8cf;color:#1b3029}
+body.home-page a{color:var(--world-link)}
+
+.memory-world{width:min(1440px,100%);margin:0 auto;padding:18px 22px 64px}
+.world-stage{position:relative;isolation:isolate;min-height:min(860px,calc(100vh - 36px));overflow:hidden;border:1px solid #60776a;background:#283b34;box-shadow:0 16px 0 rgba(3,10,8,.55)}
+.world-main-photo{position:absolute;z-index:-3;inset:0;margin:0;background:#4d5f52}
+.world-main-photo img{width:100%;height:100%;object-fit:cover;object-position:center center;filter:saturate(.64) contrast(.96) brightness(.73)}
+.world-main-photo figcaption{position:absolute;right:17px;bottom:14px;margin:0;padding:3px 6px;color:#d7e2cd;background:rgba(14,25,21,.64);font:9px/1.25 "Courier New",monospace;letter-spacing:1px}
+.world-shade{position:absolute;z-index:-2;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(10,20,17,.62),transparent 25%,transparent 68%,rgba(9,18,15,.3)),linear-gradient(0deg,rgba(9,17,14,.7),transparent 39%),radial-gradient(ellipse at 53% 47%,transparent 35%,rgba(6,14,11,.34) 100%)}
+.world-stage:after{content:"";position:absolute;z-index:10;inset:0;pointer-events:none;border:1px solid rgba(239,237,198,.22);box-shadow:inset 0 0 0 1px rgba(8,17,14,.3),inset 0 0 110px rgba(0,0,0,.32)}
+
+.scene-topline{position:absolute;z-index:20;left:16px;right:16px;top:14px;display:flex;align-items:center;gap:9px;color:#d5dfc8;font:10px/1.2 "Courier New",monospace;letter-spacing:.7px;text-shadow:0 1px #15221d}
+.scene-led{width:7px;height:7px;border-radius:50%;background:var(--world-signal);box-shadow:0 0 10px rgba(231,211,128,.8)}
+.scene-time{margin-left:auto;color:#bacab8;opacity:.8}
+.scene-directory-toggle,.scene-directory-close{border:1px solid rgba(222,232,200,.58);background:rgba(19,34,28,.46);color:#e7ecd1;font:10px/1.2 "Courier New",monospace;cursor:pointer}
+.scene-directory-toggle{padding:5px 8px;margin-left:10px}.scene-directory-toggle:hover,.scene-directory-toggle:focus-visible{background:#d8dfc1;color:#20342c;outline:0}
+
+.scene-caption{position:absolute;z-index:12;left:5.7%;bottom:7.2%;width:min(430px,42%);padding:16px 19px 15px;border-left:2px solid rgba(223,232,200,.78);background:linear-gradient(90deg,rgba(13,28,23,.82),rgba(13,28,23,.3));text-shadow:0 1px 2px rgba(0,0,0,.65)}
+.scene-kicker{margin:0 0 8px;color:#e0d593;font:9px/1.3 "Courier New",monospace;letter-spacing:1.8px}.scene-caption h1{margin:0 0 8px;color:#f0eed6;font:400 clamp(30px,4.5vw,62px)/1.08 "Times New Roman","Songti SC",serif;letter-spacing:-1px;white-space:pre-line}.scene-caption>p:not(.scene-kicker){margin:0;color:#d4dfcf;font-size:13px;line-height:1.75}.scene-caption-note{display:block;margin-top:14px;color:#b4c5b3;font:9px/1.3 "Courier New",monospace;letter-spacing:.4px}
+
+.scene-hotspot{position:absolute;z-index:18;display:flex;align-items:center;gap:7px;color:#f1edc9;text-decoration:none;cursor:pointer}
+.hotspot-dot{display:block;width:11px;height:11px;border:1px solid #ebe4b3;border-radius:50%;background:rgba(223,208,132,.2);box-shadow:0 0 0 4px rgba(219,205,137,.08),0 0 15px rgba(233,217,127,.48);transition:transform .18s,background .18s}
+.hotspot-label{padding:4px 6px;border:1px solid rgba(225,232,197,.56);background:rgba(11,23,18,.65);font:10px/1.2 "Microsoft YaHei",sans-serif;opacity:.86;transition:opacity .18s,background .18s,color .18s}
+.scene-hotspot:hover .hotspot-dot,.scene-hotspot:focus-visible .hotspot-dot{transform:scale(1.35);background:#eee5af}.scene-hotspot:hover .hotspot-label,.scene-hotspot:focus-visible .hotspot-label{opacity:1;background:#e1e5c7;color:#1d3028}.scene-hotspot:focus-visible{outline:0}.scene-hotspot:focus-visible .hotspot-label{outline:2px dotted #f0edc6;outline-offset:3px}
+/* These coordinates follow the visible objects in dream-school.webp. */
+.hotspot-door{right:14.5%;top:39%;}.hotspot-window{left:12.8%;top:29%;}.hotspot-notice{right:31%;top:17%;}
+.hotspot-window .hotspot-label{order:-1}.hotspot-notice .hotspot-label{font-size:9px}
+
+.scene-readout{position:absolute;z-index:19;right:23px;bottom:23px;width:min(245px,25%);padding:9px 11px;border-top:1px solid rgba(218,232,201,.65);background:rgba(12,25,20,.72);color:#d7e2cd;font:10px/1.45 "Microsoft YaHei",sans-serif}.scene-readout span{color:#a9bcaa}.scene-readout strong{font-weight:400;color:#f1edce}.scene-readout p{margin:4px 0 0;color:#c5d4c2;font-size:10px}
+
+.scene-directory{position:absolute;z-index:30;inset:0 auto 0 0;width:min(380px,88%);padding:19px 18px;background:rgba(17,34,27,.96);border-right:1px solid #91a58b;box-shadow:14px 0 30px rgba(0,0,0,.35);overflow:auto;animation:directory-in .22s ease-out}.scene-directory[hidden]{display:none}@keyframes directory-in{from{transform:translateX(-18px);opacity:.3}to{transform:none;opacity:1}}
+.directory-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;color:#d5dfc8;font:10px/1.2 "Courier New",monospace;letter-spacing:1.7px}.scene-directory-close{width:25px;height:25px;font-size:17px;line-height:1}.scene-directory-close:hover,.scene-directory-close:focus-visible{background:#e0e4c8;color:#20332b;outline:0}
+.directory-entry{display:grid;grid-template-columns:34px 1fr;gap:0 8px;padding:12px 8px;border-top:1px dotted rgba(191,211,184,.42);color:#e4e9d3;text-decoration:none}.directory-entry:last-of-type{border-bottom:1px dotted rgba(191,211,184,.42)}.directory-entry b{grid-row:span 2;color:#d6c87f;font:10px/1.6 "Courier New",monospace;font-weight:400}.directory-entry span{font:15px/1.4 "Microsoft YaHei",sans-serif}.directory-entry small{color:#9fb4a2;font:10px/1.5 "Microsoft YaHei",sans-serif}.directory-entry:hover,.directory-entry:focus-visible{background:#d8dfc1;color:#1e332a;outline:0}.directory-entry:hover b,.directory-entry:hover small,.directory-entry:focus-visible b,.directory-entry:focus-visible small{color:#4a6050}.directory-foot{display:flex;gap:18px;padding:18px 8px 5px;font:10px/1.2 "Courier New",monospace}.directory-foot a{color:#cbdcaf;text-decoration:underline;text-underline-offset:3px}
+.world-afterthought{max-width:730px;margin:34px auto 0;color:#d8e2d0;text-align:center;font:22px/1.5 "Times New Roman","Songti SC",serif}.world-afterthought span{display:block;margin-top:4px;color:#91a594;font:11px/1.7 "Microsoft YaHei",sans-serif}
+.scene-extras{max-width:1040px;margin:80px auto 0;color:#dbe5d2}.scene-extras .section{margin:70px 0}.scene-extras .section-heading{border-bottom-color:rgba(206,220,193,.35)}.scene-extras h2,.scene-extras h3{color:#e5ead7}.scene-extras p{color:#abbcab}.scene-extras .topic-card,.scene-extras .post-card,.scene-extras .wide-image,.scene-extras .gallery figure,.scene-extras .split-feature figure,.scene-extras .facts-grid>div{background:rgba(218,226,201,.12);border-color:rgba(205,221,191,.42);box-shadow:3px 4px 0 rgba(0,0,0,.25)}.scene-extras .topic-card:hover{background:rgba(221,229,202,.25);color:#f1efd3}.scene-extras .topic-card h3,.scene-extras .post-card h3{color:#e6ebd8}.scene-extras .text-link,.scene-extras .post-meta,.scene-extras .card-number{color:#d6c987}.scene-extras .callout{border:1px solid rgba(204,220,191,.4);background:rgba(217,224,198,.15)}.scene-extras .callout h2{color:#e9ecd7}.scene-extras .editorial-quote p{color:#e3e8d7}.scene-extras .tone-tint,.scene-extras .tone-dark{background:rgba(218,226,201,.1);border-color:rgba(205,221,191,.38)}
+
+/* 记录室：保留走廊的暗色外围，纸张只出现在内容区域。 */
+body.records-page,body.record-page,body.inner-page{min-height:100vh;background:var(--world-mist);background-image:linear-gradient(rgba(232,238,211,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(232,238,211,.06) 1px,transparent 1px);background-size:17px 17px;color:var(--world-ink)}
+body.records-page .header,body.record-page .header,body.inner-page .header{border-color:#657b6d;background:rgba(225,230,207,.82);box-shadow:3px 3px 0 rgba(41,61,50,.35)}
+body.records-page .header:before,body.record-page .header:before,body.inner-page .header:before{content:"拾光 / room-map.html";color:#dce4cf}
+body.records-page .footer,body.record-page .footer,body.inner-page .footer{border-color:#657b6d;background:rgba(220,227,207,.72);box-shadow:3px 3px 0 rgba(41,61,50,.28)}
+body.records-page main.wrap,body.record-page main.wrap,body.inner-page main.wrap{width:min(1120px,calc(100% - 38px))}
+.records-room{margin:48px 0 88px;padding:14px 24px 34px;border:1px solid #5a7163;background:rgba(19,38,30,.88);box-shadow:8px 10px 0 rgba(38,57,47,.35);color:#e1e8d6}.room-topline{display:flex;justify-content:space-between;gap:20px;padding:0 0 11px;border-bottom:1px dotted rgba(214,228,200,.45);color:#aebfaa;font:10px/1.3 "Courier New",monospace;letter-spacing:.6px}.room-topline a{color:#d9e5ce;text-decoration:underline;text-decoration-style:dotted}.room-heading{max-width:680px;padding:50px 0 32px}.room-heading .eyebrow,.record-heading .eyebrow{margin-bottom:13px;color:#d6c77d}.room-heading h1,.record-heading h1{margin:0 0 13px;color:#edf0db;font:400 clamp(38px,6vw,70px)/1.1 "Times New Roman","Songti SC",serif;letter-spacing:-1px}.room-heading p:not(.eyebrow),.record-heading .lead{color:#b6c6b4;font-size:14px}.records-shelf{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 22px}.records-shelf .post-card{padding:8px 8px 19px;background:#d9dfc7;border-color:#92a58d;box-shadow:5px 6px 0 rgba(3,12,9,.48)}.records-shelf .post-card:nth-child(even){transform:translateY(25px) rotate(.45deg)}.records-shelf .post-card:hover{transform:translateY(-4px) rotate(-.2deg)}.records-shelf .post-card h3 a{color:#283d34}.records-shelf .post-card p{color:#54685b}.records-shelf .post-card .text-link{color:#304a78}.empty-room{padding:40px 0;color:#b6c6b4}
+
+.record-entry{margin:48px auto 86px;max-width:920px;padding:14px 24px 32px;border:1px solid #5a7163;background:rgba(19,38,30,.88);box-shadow:8px 10px 0 rgba(38,57,47,.35)}.record-heading{padding:48px 0 28px}.record-heading h1{font-size:clamp(38px,5vw,61px)}.record-cover{margin:0 auto 0;padding:8px;background:#d9dfc7;border:1px solid #96a98f;box-shadow:5px 6px 0 rgba(3,12,9,.46)}.record-cover img{width:100%;max-height:540px;object-fit:cover;filter:saturate(.76) contrast(.96)}.record-cover figcaption{padding:7px 4px 0;color:#586b5d;font:9px/1.3 "Courier New","Microsoft YaHei",monospace}.record-paper{margin:33px auto 0;padding:42px 48px;background:#e9ead4;border:1px solid #8d9e87;box-shadow:5px 6px 0 rgba(3,12,9,.4);color:#273a31}.record-paper .prose{max-width:760px;font-size:17px}.record-paper .prose p,.record-paper .prose li{color:#30463a}.record-paper .prose h2{color:#243b31}.record-paper .prose blockquote{background:#d8dec4;border-left-color:#5b7460}.record-paper .prose a{color:#304a78}.record-nav{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:25px}.record-nav a{color:#d6e4cf;font:10px/1.3 "Courier New",monospace;text-decoration:underline;text-decoration-style:dotted}
+.inner-room{margin:48px 0 80px}.inner-room .page-heading{padding:30px 25px;border-color:#5a7163;background:rgba(19,38,30,.88);box-shadow:5px 6px 0 rgba(38,57,47,.35)}.inner-room .page-heading h1{color:#edf0db}.inner-room .page-heading p{color:#b6c6b4}.inner-room .section{margin-top:54px}.inner-room .prose{padding:32px 38px;border:1px solid #839782;background:#e9ead4;box-shadow:4px 5px 0 rgba(38,57,47,.3)}
+
+@media(max-width:760px){
+  .memory-world{padding:9px 8px 38px}.world-stage{min-height:calc(100svh - 18px);box-shadow:0 8px 0 rgba(3,10,8,.55)}.world-main-photo img{object-position:56% center;filter:saturate(.62) contrast(.96) brightness(.66)}.world-main-photo figcaption{right:9px;bottom:10px;font-size:8px}.scene-topline{left:11px;right:11px;top:11px;font-size:8px}.scene-time{display:none}.scene-directory-toggle{margin-left:auto;font-size:9px;padding:5px 6px}.scene-caption{left:17px;right:17px;bottom:24px;width:auto;padding:13px 14px 12px;background:linear-gradient(90deg,rgba(13,28,23,.88),rgba(13,28,23,.54))}.scene-caption h1{font-size:clamp(31px,10vw,43px)}.scene-caption>p:not(.scene-kicker){font-size:12px;line-height:1.65}.scene-caption-note{margin-top:10px;font-size:8px}.scene-readout{right:14px;bottom:auto;top:49px;width:auto;max-width:47%;padding:7px 8px;font-size:9px}.scene-readout p{font-size:9px}.scene-hotspot{gap:5px}.hotspot-dot{width:10px;height:10px}.hotspot-label{padding:3px 5px;font-size:9px}.hotspot-door{right:8%;top:41%}.hotspot-window{left:7%;top:31%}.hotspot-notice{right:20%;top:18%}.scene-directory{width:calc(100% - 18px);padding:16px 14px}.directory-entry span{font-size:14px}.world-afterthought{margin:24px 17px 0;font-size:18px}.scene-extras{margin:54px 10px 0}.scene-extras .section{margin:48px 0}.scene-extras .post-grid{grid-template-columns:1fr}.scene-extras .topic-card:nth-child(n),.scene-extras .post-card:nth-child(n){transform:none}
+  body.records-page main.wrap,body.record-page main.wrap,body.inner-page main.wrap{width:calc(100% - 20px)}.records-room{margin:25px 0 55px;padding:11px 14px 25px}.room-topline{font-size:8px;gap:8px}.room-topline span:last-child{display:none}.room-heading{padding:35px 0 25px}.room-heading h1,.record-heading h1{font-size:42px}.records-shelf{grid-template-columns:1fr;gap:20px}.records-shelf .post-card:nth-child(even){transform:none}.records-shelf .post-card:hover{transform:translateY(-2px)}.record-entry{margin:25px 0 55px;padding:11px 14px 25px}.record-heading{padding:35px 0 25px}.record-paper{padding:29px 19px;margin-top:23px}.record-paper .prose{font-size:16px}.record-nav{gap:11px}.inner-room{margin:25px 0 55px}.inner-room .page-heading{padding:24px 16px}.inner-room .prose{padding:25px 18px}
+}
+@media(prefers-reduced-motion:reduce){.scene-directory{animation:none}.hotspot-dot,.hotspot-label{transition:none}}
+@media print{.world-shade,.memory-overlay{display:none!important}.scene-hotspot,.scene-topline,.scene-readout{display:none}.record-entry,.records-room{background:#fff;box-shadow:none;color:#000}.record-paper{box-shadow:none}.record-paper .prose p,.record-paper .prose li{color:#222}}
+
