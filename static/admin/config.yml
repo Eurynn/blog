@@ -2399,6 +2399,30 @@
               "hint": "显示在首页标题下方。"
             },
             {
+              "label": "场景声音名称",
+              "name": "sound_title",
+              "widget": "string",
+              "default": "走廊里的广播",
+              "hint": "显示在访客打开声音后的状态提示中。"
+            },
+            {
+              "label": "默认打开声音",
+              "name": "sound_default",
+              "widget": "boolean",
+              "default": false,
+              "hint": "浏览器仍会要求访客主动点击“进入走廊”后才能播放。"
+            },
+            {
+              "label": "场景声音音量",
+              "name": "sound_volume",
+              "widget": "number",
+              "value_type": "int",
+              "min": 0,
+              "max": 50,
+              "default": 24,
+              "hint": "建议保持在 15–30，声音由低频空气声、灯管嗡鸣和稀疏钟音组成。"
+            },
+            {
               "label": "电脑图片焦点横向位置",
               "name": "desktop_focus_x",
               "widget": "number",

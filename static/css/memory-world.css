@@ -73,3 +73,44 @@ body.records-page main.wrap,body.record-page main.wrap,body.inner-page main.wrap
 }
 @media(prefers-reduced-motion:reduce){.scene-directory{animation:none}.hotspot-dot,.hotspot-label{transition:none}}
 @media print{.world-shade,.memory-overlay{display:none!important}.scene-hotspot,.scene-topline,.scene-readout{display:none}.record-entry,.records-room{background:#fff;box-shadow:none;color:#000}.record-paper{box-shadow:none}.record-paper .prose p,.record-paper .prose li{color:#222}}
+
+/* 第一阶段：首页不再是一张被标注的照片，而是一段可以进入的走廊。 */
+body.home-page{background:#101818}
+body.home-page .memory-overlay{opacity:.035}
+.memory-world{width:100%;padding:0}
+.world-stage{min-height:100svh;border:0;background:#12201e;box-shadow:none}
+body.home-page .world-afterthought,body.home-page .scene-extras{display:none}
+.world-main-photo{z-index:-4}
+.world-main-photo img{filter:saturate(.76) contrast(.93) brightness(.91) sepia(.04);transform:scale(1.008);transition:filter 1.4s ease,transform 6s ease}
+.world-stage.is-awake .world-main-photo img{filter:saturate(.84) contrast(.94) brightness(.98) sepia(.02);transform:scale(1.025)}
+.world-shade{z-index:-3;background:linear-gradient(90deg,rgba(9,21,22,.35),transparent 33%,transparent 76%,rgba(9,19,21,.2)),linear-gradient(0deg,rgba(6,15,16,.39),transparent 43%),radial-gradient(ellipse at 50% 40%,transparent 28%,rgba(12,23,22,.13) 100%)}
+.world-stage:before{content:"";position:absolute;z-index:-2;inset:0;pointer-events:none;background:linear-gradient(115deg,rgba(157,224,227,.11),transparent 22%,transparent 63%,rgba(255,222,151,.09)),repeating-linear-gradient(0deg,rgba(252,246,211,.028) 0,rgba(252,246,211,.028) 1px,transparent 1px,transparent 4px);mix-blend-mode:screen}
+.world-stage:after{border:0;box-shadow:inset 0 0 125px rgba(3,9,10,.28);transition:background .55s ease}
+.world-stage.is-transitioning:after{background:rgba(227,241,219,.74)}
+.world-stage.is-transitioning .world-main-photo img{filter:brightness(1.45) blur(1px);transform:scale(1.075)}
+.world-main-photo figcaption{right:18px;bottom:16px;border:1px solid rgba(214,236,225,.28);background:rgba(8,22,23,.46);color:rgba(236,249,234,.72)}
+
+.scene-arrival{position:absolute;z-index:45;inset:0;display:grid;place-items:center;padding:22px;background:rgba(7,18,19,.32);backdrop-filter:blur(2px);transition:opacity .62s ease,visibility .62s ease}
+.scene-arrival[hidden],.scene-arrival.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
+.arrival-paper{width:min(420px,calc(100% - 34px));padding:22px 24px 20px;border:1px solid rgba(225,236,208,.67);background:rgba(230,230,199,.87);box-shadow:8px 10px 30px rgba(0,0,0,.23);color:#203833;transform:rotate(-.4deg)}
+.arrival-paper p{margin:0 0 16px;color:#59716a;font:10px/1.3 "Courier New",monospace;letter-spacing:1.3px}.arrival-paper h1{margin:0;color:#203934;font:400 clamp(27px,4vw,41px)/1.16 "Times New Roman","Songti SC",serif;letter-spacing:-.6px}.arrival-paper>span{display:block;margin:13px 0 20px;color:#4c625b;font:13px/1.5 "Microsoft YaHei",sans-serif}.arrival-paper div{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.arrival-paper button{border:1px solid #476860;background:#244840;color:#eef2d7;padding:9px 12px;cursor:pointer;font:12px/1.2 "Microsoft YaHei",sans-serif}.arrival-paper button:hover,.arrival-paper button:focus-visible{background:#dce5c9;color:#203732;outline:2px solid #7c9585;outline-offset:2px}.arrival-paper button+button{border-color:#859b90;background:transparent;color:#365249}.arrival-paper small{display:block;margin-top:3px;opacity:.72;font:9px/1.1 "Courier New",monospace}
+
+.scene-topline{top:16px;left:20px;right:20px;gap:10px;color:rgba(237,245,226,.82);font-size:9px;letter-spacing:1px}.scene-led{width:6px;height:6px;background:#e8d889;box-shadow:0 0 12px rgba(245,220,145,.8)}.scene-time{color:rgba(232,242,220,.7)}
+.scene-directory-toggle,.scene-directory-close,.scene-sound-toggle{border:1px solid rgba(220,239,222,.38);background:rgba(11,30,30,.35);color:#edf1d9;font:9px/1.2 "Courier New",monospace;letter-spacing:.2px;cursor:pointer}.scene-directory-toggle,.scene-sound-toggle{padding:6px 8px}.scene-sound-toggle{margin-left:10px}.scene-sound-toggle[aria-pressed="true"]{border-color:rgba(251,226,151,.75);color:#fae897;box-shadow:0 0 12px rgba(242,211,119,.19)}.scene-directory-toggle:hover,.scene-directory-toggle:focus-visible,.scene-sound-toggle:hover,.scene-sound-toggle:focus-visible{background:#e3edcf;color:#213a35;outline:0}
+
+.scene-caption{left:auto;right:6.7%;bottom:7%;width:min(285px,30%);padding:13px 15px 12px;border:1px solid rgba(226,238,207,.62);background:rgba(227,228,199,.83);box-shadow:5px 6px 18px rgba(0,0,0,.14);color:#29453d;text-shadow:none;transform:rotate(.38deg)}
+.scene-kicker{margin:0 0 8px;color:#607b70;font-size:8px;letter-spacing:1.2px}.scene-caption h2{margin:0 0 7px;color:#25443b;font:400 clamp(19px,2.2vw,28px)/1.15 "Times New Roman","Songti SC",serif;letter-spacing:-.35px}.scene-caption>p:not(.scene-kicker){color:#486258;font-size:11px;line-height:1.65}.scene-caption-note{margin-top:10px;color:#62796d;font-size:8px;letter-spacing:.1px}
+
+.scene-hotspot{z-index:18;width:48px;height:48px;transform:translate(-50%,-50%)}
+.hotspot-dot{position:absolute;left:50%;top:50%;width:11px;height:11px;border:1px solid rgba(239,231,178,.92);background:rgba(244,225,142,.23);box-shadow:0 0 0 6px rgba(245,227,159,.08),0 0 19px rgba(247,225,138,.62);transform:translate(-50%,-50%);animation:object-glow 3.8s ease-in-out infinite}
+.hotspot-label{left:50%;top:50%;padding:5px 7px;border:1px solid rgba(226,238,207,.62);background:rgba(10,30,30,.78);font-size:10px;opacity:0;transform:translate(16px,-50%);pointer-events:none}.hotspot-label-left .hotspot-label{right:auto;left:50%;transform:translate(calc(-100% - 16px),-50%)}
+.scene-hotspot:hover .hotspot-dot,.scene-hotspot:focus-visible .hotspot-dot{transform:translate(-50%,-50%) scale(1.5);background:#fff0ac}.scene-hotspot:hover .hotspot-label,.scene-hotspot:focus-visible .hotspot-label{opacity:1;background:rgba(12,33,31,.92);color:#f5f3d8}.scene-hotspot:focus-visible .hotspot-label{outline:1px dotted #f0edc6;outline-offset:3px}
+@keyframes object-glow{0%,100%{opacity:.55}50%{opacity:1}}
+
+.scene-readout{left:5.5%;right:auto;bottom:5%;width:min(220px,22%);padding:8px 9px;border:0;border-left:1px solid rgba(226,240,218,.58);background:rgba(7,22,22,.24);color:#dce9d7;font-size:9px}.scene-readout span{color:#becdbd}.scene-readout strong{color:#f3e9ba}.scene-readout p{color:#d4e0d0;font-size:9px}
+.scene-directory{background:rgba(17,35,33,.96);border-right-color:#b3c5a7}
+
+@media(max-width:760px){
+  .world-stage{min-height:100svh}.world-main-photo img{filter:saturate(.74) contrast(.94) brightness(.89);object-position:var(--mobile-focus-x,70%) var(--mobile-focus-y,50%)}.world-stage.is-awake .world-main-photo img{filter:saturate(.8) contrast(.95) brightness(.97)}.scene-topline{left:12px;right:12px;top:12px;gap:7px}.scene-topline>span:nth-of-type(2){display:none}.scene-sound-toggle{margin-left:auto}.scene-directory-toggle{margin-left:0}.scene-caption{right:16px;bottom:24px;width:min(235px,65%);padding:11px 12px}.scene-caption h2{font-size:21px}.scene-caption>p:not(.scene-kicker){font-size:10px}.scene-caption-note{font-size:7px}.scene-readout{display:none}.scene-hotspot{width:44px;height:44px}.hotspot-label{font-size:9px}.arrival-paper{padding:19px 18px 17px}.arrival-paper h1{font-size:30px}.arrival-paper>span{font-size:12px}.world-main-photo figcaption{right:10px;bottom:10px}
+}
+@media(prefers-reduced-motion:reduce){.world-main-photo img,.scene-arrival,.world-stage:after{transition:none}.hotspot-dot{animation:none}}
