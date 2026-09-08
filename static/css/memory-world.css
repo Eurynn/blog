@@ -140,3 +140,13 @@ body.page-about .inner-room .prose{max-width:760px;padding:28px 31px;border:1px 
 @media(max-width:760px){body.inner-page.page-about{background-position:70% center}.page-about .inner-room{padding:14px 12px 45px}.page-about .inner-room .page-heading{margin:35px 0 28px;padding:16px 17px}.page-about .inner-room .section{margin:26px 0;padding:17px 15px}.page-about .inner-room .prose{padding:23px 17px}}
 .page-about .computer-status{max-width:1000px;margin:10px 0 0;padding:7px 10px;border-left:2px solid #e4ca81;background:rgba(5,24,26,.72);color:#e4ca81;font:700 10px/1.4 "Courier New",monospace;letter-spacing:1px;box-shadow:3px 4px 0 rgba(0,0,0,.2)}
 .page-about .computer-status:after{content:" ▌";animation:crt-cursor 1.1s steps(1) infinite}.page-about .room-returned .computer-status{color:#f1b88b;border-left-color:#f1b88b}@keyframes crt-cursor{50%{opacity:0}}
+
+/* 第四阶段：房间之间有短暂的暗场，声音按钮在各个房间保持位置一致。 */
+.room-transition{position:fixed;inset:0;z-index:200;pointer-events:none;background:#061012;opacity:0;transition:opacity .46s ease}
+body.is-leaving .room-transition{opacity:.94}
+.room-sound-toggle{position:fixed;z-index:120;right:18px;bottom:18px;padding:7px 10px;border:1px solid rgba(220,239,222,.46);background:rgba(7,23,24,.76);color:#dcebd8;font:10px/1.2 "Courier New",monospace;letter-spacing:.3px;cursor:pointer;box-shadow:3px 4px 0 rgba(0,0,0,.25)}
+.room-sound-toggle:hover,.room-sound-toggle:focus-visible{background:#dfead1;color:#19332f;outline:0}.room-sound-toggle[aria-pressed="true"]{border-color:#e4ca81;color:#f0d98f}
+.room-exit{display:inline-block;margin:2px 0 4px;color:#d9e5ce;font:10px/1.3 "Courier New",monospace;text-decoration:underline;text-decoration-style:dotted}
+body.page-about .room-exit{color:#e4ca81}
+@media(max-width:760px){.room-sound-toggle{right:12px;bottom:12px;font-size:9px}.room-exit{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.room-transition{transition:none}}

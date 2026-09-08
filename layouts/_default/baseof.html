@@ -16,9 +16,11 @@
 {{ if not (findRE "^#[0-9a-fA-F]{6}$" $accent) }}{{ $accent = "#315c49" }}{{ end }}{{ if not (findRE "^#[0-9a-fA-F]{6}$" $bg) }}{{ $bg = "#f7f5ef" }}{{ end }}
 <style>:root{--accent:{{ $accent | safeCSS }};--paper:{{ $bg | safeCSS }};}</style>
 </head>
-{{ $pageSlug := "" }}{{ with .File }}{{ $pageSlug = .ContentBaseName }}{{ end }}
-<body class="{{ if .IsHome }}home-page{{ else if and (eq .Section "posts") .IsSection }}records-page{{ else if eq .Section "posts" }}record-page{{ else }}inner-page{{ end }} page-{{ $pageSlug }} width-{{ hugo.Data.settings.width | default "normal" }} font-{{ hugo.Data.settings.font_style | default "serif" }} corners-{{ hugo.Data.settings.corners | default "soft" }}">
+{{ $pageSlug := "" }}{{ with .File }}{{ $pageSlug = .ContentBaseName }}{{ end }}{{ $roomSound := "quiet" }}{{ if eq .Section "posts" }}{{ $roomSound = "classroom" }}{{ else if eq $pageSlug "about" }}{{ $roomSound = "computer" }}{{ end }}
+<body class="{{ if .IsHome }}home-page{{ else if and (eq .Section "posts") .IsSection }}records-page{{ else if eq .Section "posts" }}record-page{{ else }}inner-page{{ end }} page-{{ $pageSlug }} width-{{ hugo.Data.settings.width | default "normal" }} font-{{ hugo.Data.settings.font_style | default "serif" }} corners-{{ hugo.Data.settings.corners | default "soft" }}" data-room-sound="{{ $roomSound }}">
 <div class="memory-overlay" aria-hidden="true"></div>
+<div class="room-transition" aria-hidden="true"></div>
+{{ if and (not .IsHome) (ne $roomSound "quiet") }}<button class="room-sound-toggle" type="button" data-room-sound-toggle aria-pressed="false" aria-label="唤醒房间声音">声音：关</button>{{ end }}
 <a class="skip" href="#main">跳到正文</a>
 <header class="header wrap">
 <a class="brand" href="{{ "" | partial "url.html" }}"><span class="brand-mark">{{ hugo.Data.settings.mark | default (substr hugo.Data.settings.title 0 1) }}</span>{{ hugo.Data.settings.title }}<span class="brand-sub">{{ hugo.Data.settings.tagline }}</span></a>
@@ -26,5 +28,5 @@
 </header>
 <main id="main" class="wrap">{{ block "main" . }}{{ end }}</main>
 <footer class="footer wrap"><div><strong>{{ hugo.Data.settings.title }}</strong><p>{{ hugo.Data.settings.footer }}</p></div><div><a href="{{ "index.xml" | partial "url.html" }}">RSS 订阅 ↗</a>{{ range hugo.Data.settings.footer_links }}<a href="{{ .url | partial "url.html" }}">{{ .label }} ↗</a>{{ end }}{{ if ne hugo.Data.settings.show_admin_link false }}<a href="{{ "admin/" | partial "url.html" }}">管理小站 ↗</a>{{ end }}<small>© {{ now.Year }} · 本页最后生成于 {{ now.Format "2006.01.02" }}</small></div></footer>
-{{ if .IsHome }}<script src="{{ "js/memory-world.js" | partial "url.html" }}" defer></script>{{ else }}{{ with .File }}{{ if eq .ContentBaseName "about" }}<script src="{{ "js/computer-room.js" | partial "url.html" }}" defer></script>{{ end }}{{ end }}{{ end }}
+{{ if .IsHome }}<script src="{{ "js/memory-world.js" | partial "url.html" }}" defer></script>{{ else }}<script src="{{ "js/room-effects.js" | partial "url.html" }}" defer></script>{{ with .File }}{{ if eq .ContentBaseName "about" }}<script src="{{ "js/computer-room.js" | partial "url.html" }}" defer></script>{{ end }}{{ end }}{{ end }}
 </body></html>

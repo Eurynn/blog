@@ -1,9 +1,8 @@
 {{ define "main" }}
 <section class="records-room" aria-labelledby="records-title">
-  <div class="room-topline"><a href="{{ "" | partial "url.html" }}">← 回到走廊</a><span>ROOM 04 / RECORDS</span><span>{{ len .Pages }} FILES</span></div>
+  <div class="room-topline"><a href="{{ "" | partial "url.html" }}" data-room-link>← 回到走廊</a><span>ROOM 04 / RECORDS</span><span>{{ len .Pages }} FILES</span></div>
   <header class="room-heading"><p class="eyebrow">THE JOURNAL / 不按顺序</p><h1 id="records-title">所有文章</h1><p>把留下来的片段放在桌上。日期只是其中一种线索。</p></header>
   <div class="records-shelf">{{ range .Pages }}{{ partial "post-card.html" . }}{{ end }}</div>
   {{ if not .Pages }}<p class="empty-room">这里还没有被写下的东西。</p>{{ end }}
 </section>
 {{ end }}
-
