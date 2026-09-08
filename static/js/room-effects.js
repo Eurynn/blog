@@ -1,6 +1,7 @@
 (() => {
   const body = document.body;
   const toggle = document.querySelector('[data-room-sound-toggle]');
+  const audio = document.querySelector('[data-room-audio]');
   const room = body?.dataset.roomSound || 'quiet';
   const transition = document.querySelector('.room-transition');
   const links = document.querySelectorAll('[data-room-link]');
@@ -23,6 +24,7 @@
   let context;
   let master;
   let ready = false;
+  let audioPlaying = false;
   let pulseTimer;
   const remembered = localStorage.getItem('memory-world-sound') === 'on';
   const volume = room === 'computer' ? 0.12 : 0.1;
@@ -54,6 +56,26 @@
     oscillator.connect(gain).connect(master);
     oscillator.start(now);
     oscillator.stop(now + duration + 0.05);
+  };
+
+  const startNativeTrack = async () => {
+    if (!audio) return false;
+    audio.volume = room === 'computer' ? 0.7 : 0.62;
+    try {
+      await audio.play();
+      audioPlaying = true;
+      return true;
+    } catch {
+      audioPlaying = false;
+      return false;
+    }
+  };
+
+  const stopNativeTrack = () => {
+    if (!audio) return;
+    audio.pause();
+    audio.currentTime = 0;
+    audioPlaying = false;
   };
 
   const makeRoomSound = () => {
@@ -101,16 +123,21 @@
 
   const setSound = async (enabled) => {
     if (enabled) {
-      makeRoomSound();
-      if (context) await context.resume();
+      const started = await startNativeTrack();
+      if (!started) {
+        makeRoomSound();
+        if (context) await context.resume();
+      }
+    } else {
+      stopNativeTrack();
     }
     if (context && master) {
       master.gain.cancelScheduledValues(context.currentTime);
-      master.gain.linearRampToValueAtTime(enabled ? volume : 0, context.currentTime + 0.5);
+      master.gain.linearRampToValueAtTime(enabled && !audioPlaying ? volume : 0, context.currentTime + 0.5);
     }
     toggle.setAttribute('aria-pressed', String(enabled));
     toggle.setAttribute('aria-label', enabled ? '关闭房间声音' : '唤醒房间声音');
-    toggle.textContent = enabled ? '声音：开' : '声音：关';
+    toggle.textContent = enabled ? '音乐：开' : '音乐：关';
     localStorage.setItem('memory-world-sound', enabled ? 'on' : 'off');
   };
 

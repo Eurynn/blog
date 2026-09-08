@@ -10,6 +10,7 @@
   const enterWithSound = document.querySelector('[data-enter-sound]');
   const enterSilent = document.querySelector('[data-enter-silent]');
   const soundButton = document.querySelector('[data-sound-toggle]');
+  const audio = document.querySelector('[data-room-audio]');
   if (!stage || !place || !status) return;
 
   const describe = (target) => {
@@ -40,6 +41,7 @@
   let context;
   let master;
   let soundReady = false;
+  let audioPlaying = false;
   let bellTimer;
   let melodyTimer;
   const soundTitle = stage.dataset.soundTitle || '走廊里的广播';
@@ -74,6 +76,26 @@
     oscillator.connect(gain).connect(master);
     oscillator.start(now);
     oscillator.stop(now + duration + 0.05);
+  };
+
+  const startNativeTrack = async () => {
+    if (!audio) return false;
+    audio.volume = Math.min(Math.max(preferredVolume * 1.35, 0.24), 0.72);
+    try {
+      await audio.play();
+      audioPlaying = true;
+      return true;
+    } catch {
+      audioPlaying = false;
+      return false;
+    }
+  };
+
+  const stopNativeTrack = () => {
+    if (!audio) return;
+    audio.pause();
+    audio.currentTime = 0;
+    audioPlaying = false;
   };
 
   const createSoundscape = () => {
@@ -143,21 +165,26 @@
 
   const setSound = async (enabled) => {
     if (enabled) {
-      createSoundscape();
-      if (context) await context.resume();
+      const started = await startNativeTrack();
+      if (!started) {
+        createSoundscape();
+        if (context) await context.resume();
+      }
+    } else {
+      stopNativeTrack();
     }
     if (master && context) {
       master.gain.cancelScheduledValues(context.currentTime);
-      master.gain.linearRampToValueAtTime(enabled ? preferredVolume : 0, context.currentTime + 0.55);
+      master.gain.linearRampToValueAtTime(enabled && !audioPlaying ? preferredVolume : 0, context.currentTime + 0.55);
     }
     stage.classList.toggle('sound-on', enabled);
     soundButton?.setAttribute('aria-pressed', String(enabled));
     soundButton?.setAttribute('aria-label', enabled ? '关闭场景声音' : '打开场景声音');
-    if (soundButton) soundButton.textContent = enabled ? '声音：开' : '声音：关';
+    if (soundButton) soundButton.textContent = enabled ? '音乐：开' : '音乐：关';
     localStorage.setItem('memory-world-sound', enabled ? 'on' : 'off');
     if (enabled) {
       place.textContent = soundTitle;
-      status.textContent = context?.state === 'running' ? '远处的广播没有说完。' : '浏览器没有放行声音，再点一次声音按钮。';
+      status.textContent = audioPlaying || context?.state === 'running' ? '远处的广播没有说完。' : '浏览器没有放行声音，再点一次音乐按钮。';
     }
   };
 

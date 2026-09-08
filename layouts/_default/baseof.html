@@ -20,6 +20,7 @@
 <body class="{{ if .IsHome }}home-page{{ else if and (eq .Section "posts") .IsSection }}records-page{{ else if eq .Section "posts" }}record-page{{ else }}inner-page{{ end }} page-{{ $pageSlug }} width-{{ hugo.Data.settings.width | default "normal" }} font-{{ hugo.Data.settings.font_style | default "serif" }} corners-{{ hugo.Data.settings.corners | default "soft" }}" data-room-sound="{{ $roomSound }}">
 <div class="memory-overlay" aria-hidden="true"></div>
 <div class="room-transition" aria-hidden="true"></div>
+<audio class="room-audio" data-room-audio loop preload="auto" src="{{ "audio/dreamcore-loop.wav" | partial "url.html" }}"></audio>
 {{ if and (not .IsHome) (ne $roomSound "quiet") }}<button class="room-sound-toggle" type="button" data-room-sound-toggle aria-pressed="false" aria-label="唤醒房间声音">声音：关</button>{{ end }}
 <a class="skip" href="#main">跳到正文</a>
 <header class="header wrap">

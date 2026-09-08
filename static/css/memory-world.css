@@ -146,6 +146,7 @@ body.page-about .inner-room .prose{max-width:760px;padding:28px 31px;border:1px 
 body.is-leaving .room-transition{opacity:.94}
 .room-sound-toggle{position:fixed;z-index:120;right:18px;bottom:18px;padding:7px 10px;border:1px solid rgba(220,239,222,.46);background:rgba(7,23,24,.76);color:#dcebd8;font:10px/1.2 "Courier New",monospace;letter-spacing:.3px;cursor:pointer;box-shadow:3px 4px 0 rgba(0,0,0,.25)}
 .room-sound-toggle:hover,.room-sound-toggle:focus-visible{background:#dfead1;color:#19332f;outline:0}.room-sound-toggle[aria-pressed="true"]{border-color:#e4ca81;color:#f0d98f}
+.room-audio{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
 .room-exit{display:inline-block;margin:2px 0 4px;color:#d9e5ce;font:10px/1.3 "Courier New",monospace;text-decoration:underline;text-decoration-style:dotted}
 body.page-about .room-exit{color:#e4ca81}
 @media(max-width:760px){.room-sound-toggle{right:12px;bottom:12px;font-size:9px}.room-exit{font-size:9px}}
