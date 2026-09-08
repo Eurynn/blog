@@ -25,7 +25,7 @@
   let ready = false;
   let pulseTimer;
   const remembered = localStorage.getItem('memory-world-sound') === 'on';
-  const volume = room === 'computer' ? 0.055 : 0.045;
+  const volume = room === 'computer' ? 0.12 : 0.1;
 
   const noise = (audioContext) => {
     const buffer = audioContext.createBuffer(1, audioContext.sampleRate * 3, audioContext.sampleRate);
@@ -39,6 +39,21 @@
     source.buffer = buffer;
     source.loop = true;
     return source;
+  };
+
+  const playNote = (frequency, duration = 2, level = 0.08) => {
+    if (!context || !master) return;
+    const now = context.currentTime;
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+    oscillator.type = 'triangle';
+    oscillator.frequency.value = frequency;
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(level, now + 0.06);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+    oscillator.connect(gain).connect(master);
+    oscillator.start(now);
+    oscillator.stop(now + duration + 0.05);
   };
 
   const makeRoomSound = () => {
@@ -81,6 +96,7 @@
     };
     pulseTimer = window.setInterval(pulse, room === 'computer' ? 17000 : 26000);
     ready = true;
+    playNote(room === 'computer' ? 329.63 : 261.63, 0.8, 0.12);
   };
 
   const setSound = async (enabled) => {

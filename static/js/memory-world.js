@@ -41,6 +41,7 @@
   let master;
   let soundReady = false;
   let bellTimer;
+  let melodyTimer;
   const soundTitle = stage.dataset.soundTitle || '走廊里的广播';
   const preferredVolume = Math.min(Math.max(Number(stage.dataset.soundVolume || 24), 0), 100) / 100;
 
@@ -58,6 +59,21 @@
     source.buffer = buffer;
     source.loop = true;
     return source;
+  };
+
+  const playNote = (frequency, duration = 2.4, level = 0.08) => {
+    if (!context || !master) return;
+    const now = context.currentTime;
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+    oscillator.type = 'triangle';
+    oscillator.frequency.setValueAtTime(frequency, now);
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(level, now + 0.08);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+    oscillator.connect(gain).connect(master);
+    oscillator.start(now);
+    oscillator.stop(now + duration + 0.05);
   };
 
   const createSoundscape = () => {
@@ -112,8 +128,17 @@
         bell.stop(now + index * 0.13 + 4);
       });
     };
+    const melody = [261.63, 329.63, 392, 329.63, 293.66, 349.23, 440, 392];
+    let melodyIndex = 0;
+    const playMelody = () => {
+      if (!context || !master || master.gain.value <= 0.001) return;
+      playNote(melody[melodyIndex % melody.length], 2.6, 0.075);
+      melodyIndex += 1;
+    };
     bellTimer = window.setInterval(ringBell, 22000);
+    melodyTimer = window.setInterval(playMelody, 4200);
     soundReady = true;
+    playNote(392, 0.7, 0.12);
   };
 
   const setSound = async (enabled) => {
@@ -132,7 +157,7 @@
     localStorage.setItem('memory-world-sound', enabled ? 'on' : 'off');
     if (enabled) {
       place.textContent = soundTitle;
-      status.textContent = '远处的广播没有说完。';
+      status.textContent = context?.state === 'running' ? '远处的广播没有说完。' : '浏览器没有放行声音，再点一次声音按钮。';
     }
   };
 
@@ -162,5 +187,5 @@
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && directory && !directory.hidden) setDirectory(false);
   });
-  window.addEventListener('pagehide', () => window.clearInterval(bellTimer));
+  window.addEventListener('pagehide', () => { window.clearInterval(bellTimer); window.clearInterval(melodyTimer); });
 })();
