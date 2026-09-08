@@ -22,6 +22,7 @@
     </div>
     {{ $directoryLabel := $scene.directory_label | default "打开目录" }}
     <div class="scene-topline"><span class="scene-led" aria-hidden="true"></span><span>{{ $scene.browser_label | default "拾光 / 入口" }}</span><span class="scene-time">{{ $scene.time_note | default "天气：晴 · 时间：不确定" }}</span><button class="scene-sound-toggle" type="button" data-sound-toggle aria-pressed="false" aria-label="打开场景声音">声音：关</button><button class="scene-directory-toggle" type="button" aria-controls="scene-directory" aria-expanded="false" data-open-label="{{ $directoryLabel }}" data-close-label="关闭目录">{{ $directoryLabel }}</button></div>
+    <div class="scene-guide" aria-label="探索提示"><span class="guide-pulse" aria-hidden="true"></span> 点击发光标记，去别的房间</div>
     <div class="scene-caption" aria-live="polite"><p class="scene-kicker">{{ $hero.eyebrow | default "MEMORY INDEX / NO DATE" }}</p><h2>{{ $hero.title | default "你还记得，放学后的风吗？" }}</h2><p>{{ $hero.text | default "有些记忆没有日期，只剩下一点光。" }}</p><span class="scene-caption-note">{{ $scene.caption_note | default "把鼠标移到门、窗和纸条上。" }}</span></div>
     {{ range $spot := $scene.hotspots }}
       {{ $href := $spot.url | default "posts/" }}

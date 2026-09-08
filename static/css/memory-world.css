@@ -151,3 +151,37 @@ body.is-leaving .room-transition{opacity:.94}
 body.page-about .room-exit{color:#e4ca81}
 @media(max-width:760px){.room-sound-toggle{right:12px;bottom:12px;font-size:9px}.room-exit{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.room-transition{transition:none}}
+
+/* 交互可见性：进入后第一眼能看到哪里可以点击。 */
+.scene-guide{position:absolute;z-index:21;left:20px;top:54px;display:flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid rgba(232,238,207,.55);background:rgba(8,25,25,.78);color:#edf1d9;font:11px/1.2 "Microsoft YaHei",sans-serif;letter-spacing:.2px;box-shadow:3px 4px 0 rgba(0,0,0,.18)}
+.guide-pulse{width:10px;height:10px;border:1px solid #f4e79e;border-radius:50%;background:#f3dc73;box-shadow:0 0 0 5px rgba(243,220,115,.15),0 0 14px rgba(243,220,115,.75);animation:guide-pulse 1.8s ease-in-out infinite}
+@keyframes guide-pulse{50%{transform:scale(1.3);box-shadow:0 0 0 8px rgba(243,220,115,.06),0 0 20px rgba(243,220,115,.9)}}
+.scene-hotspot{width:64px;height:64px;padding:10px;touch-action:manipulation}
+.hotspot-dot{width:20px;height:20px;border-width:2px;box-shadow:0 0 0 7px rgba(219,205,137,.13),0 0 24px rgba(233,217,127,.82);transition:transform .16s ease,background .16s ease,box-shadow .16s ease}
+.hotspot-label{padding:8px 11px;border-width:1px;background:rgba(7,24,24,.9);font-size:12px;font-weight:700;opacity:.96;box-shadow:3px 4px 0 rgba(0,0,0,.2);transition:transform .16s ease,background .16s ease,color .16s ease}
+.scene-hotspot:hover .hotspot-dot,.scene-hotspot:focus-visible .hotspot-dot{transform:translate(-50%,-50%) scale(1.18);background:#fff4b5;box-shadow:0 0 0 9px rgba(255,239,155,.2),0 0 28px rgba(255,230,126,.95)}
+.scene-hotspot:hover .hotspot-label,.scene-hotspot:focus-visible .hotspot-label{background:#f0eccf;color:#19362e;transform:translate(16px,-50%) scale(1.03)}
+.hotspot-label-left:hover .hotspot-label,.hotspot-label-left:focus-visible .hotspot-label{transform:translate(calc(-100% - 16px),-50%) scale(1.03)}
+.scene-hotspot:active{transform:translate(-50%,-50%) scale(.9)}
+.scene-hotspot.is-activating .hotspot-dot{background:#fff9d0;box-shadow:0 0 0 13px rgba(255,244,174,.28),0 0 40px rgba(255,239,158,1)}
+.arrival-paper button{min-height:48px;padding:12px 17px;font-size:14px;font-weight:700;box-shadow:3px 4px 0 rgba(26,55,46,.24);transition:transform .14s ease,background .14s ease,color .14s ease,box-shadow .14s ease}
+.arrival-paper button:active{transform:translateY(2px);box-shadow:1px 2px 0 rgba(26,55,46,.24)}
+.scene-directory-toggle,.scene-sound-toggle{min-height:36px;padding:8px 12px;font-size:11px;font-weight:700;box-shadow:2px 3px 0 rgba(0,0,0,.18);transition:transform .14s ease,background .14s ease,color .14s ease}
+.scene-directory-toggle:active,.scene-sound-toggle:active{transform:translateY(2px);box-shadow:none}
+@media(max-width:760px){.scene-guide{left:12px;top:53px;padding:7px 9px;font-size:10px}.scene-hotspot{width:58px;height:58px}.hotspot-dot{width:18px;height:18px}.hotspot-label{padding:7px 9px;font-size:11px}.scene-topline{gap:6px}.scene-directory-toggle,.scene-sound-toggle{min-height:34px;padding:7px 9px;font-size:10px}.arrival-paper button{min-height:50px;padding:13px 15px}}
+@media(prefers-reduced-motion:reduce){.guide-pulse{animation:none}}
+
+/* 放大触控目标，让互动提示在第一次打开时就清楚可见。 */
+.scene-guide{padding:10px 14px;font-size:13px;box-shadow:4px 5px 0 rgba(0,0,0,.24)}
+.guide-pulse{width:12px;height:12px}
+.scene-topline .scene-directory-toggle,.scene-topline .scene-sound-toggle{min-height:42px;padding:10px 15px;font-size:12px}
+.scene-hotspot{width:78px;height:78px}
+.hotspot-dot{width:24px;height:24px}
+.hotspot-label{padding:9px 13px;font-size:14px;line-height:1.25}
+.arrival-paper button{min-height:58px;padding:14px 20px;font-size:16px}
+.arrival-paper button small{font-size:10px}
+.hotspot-label-right .hotspot-label{left:calc(50% + 16px);right:auto;transform:translateY(-50%)}
+.hotspot-label-left .hotspot-label{right:calc(50% + 16px);left:auto;transform:translateY(-50%)}
+.scene-hotspot:hover .hotspot-label,.scene-hotspot:focus-visible .hotspot-label{transform:translateY(-50%) scale(1.03)}
+.hotspot-label-left:hover .hotspot-label,.hotspot-label-left:focus-visible .hotspot-label{transform:translateY(-50%) scale(1.03)}
+@media(max-width:760px){.scene-guide{padding:9px 11px;font-size:11px}.scene-topline .scene-directory-toggle,.scene-topline .scene-sound-toggle{min-height:40px;padding:9px 11px;font-size:11px}.scene-hotspot{width:70px;height:70px}.hotspot-dot{width:22px;height:22px}.hotspot-label{padding:8px 11px;font-size:13px}.arrival-paper button{min-height:56px;padding:14px 17px;font-size:15px}}

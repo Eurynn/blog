@@ -205,6 +205,9 @@
       if (navigating || event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       event.preventDefault();
       navigating = true;
+      link.classList.add('is-activating');
+      place.textContent = link.dataset.place || '正在离开';
+      status.textContent = '门正在打开……';
       stage.classList.add('is-transitioning');
       window.setTimeout(() => { window.location.assign(link.href); }, transitionDelay);
       window.setTimeout(() => { stage.classList.remove('is-transitioning'); navigating = false; }, 2600);
